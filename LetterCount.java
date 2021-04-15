@@ -4,7 +4,6 @@ import java.io.InputStreamReader;
 import java.net.URL;
 import java.util.Map;
 import java.util.HashMap;
-import java.util.Arrays;
 
 public class LetterCount {
 
@@ -24,10 +23,13 @@ public class LetterCount {
         return this.map;
     }
 
+    // Function which returns the starting letter that contains the most occurances
     public Map.Entry<Character, Integer> getMostOcc() {
 
+        // Used to track largest running value
         Map.Entry<Character, Integer> maxEntry = null;
 
+        // For each entry in the map, compare it with the last and store the maximum entry
         for (Map.Entry<Character, Integer> entry : this.map.entrySet())
         {
             if (maxEntry == null || entry.getValue().compareTo(maxEntry.getValue()) > 0)
@@ -45,9 +47,7 @@ public class LetterCount {
     public void readLine(String line) {
 
         // Split the string into words by removing spaces
-        String[] words = line.split("\\s+");
-
-        System.out.println(Arrays.toString(words));
+        String[] words = line.trim().split("\\s+");
 
         // For each word, find the first character, ignoring any non alphanumerical characters that might be
         // caught in the word.
@@ -70,7 +70,8 @@ public class LetterCount {
     // This function downloads at the given URL, then calls readLine on each line in the stream.
     public void download() throws IOException {
         URL url = new URL(this.url);
-        try(
+        try 
+        (
             BufferedReader reader = new BufferedReader(new InputStreamReader(url.openStream()));
         ) {
             String line;
@@ -78,6 +79,9 @@ public class LetterCount {
                 readLine(line);
             }
             System.out.println("Page downloaded.");
+        } 
+        catch (Exception e) {
+            System.out.println("Provided URL does not exist.");
         }
    }
 }
