@@ -1,11 +1,10 @@
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.util.Map;
 import java.util.HashMap;
+import java.util.Arrays;
 
 public class LetterCount {
 
@@ -17,18 +16,66 @@ public class LetterCount {
         this.map = new HashMap<>();
     }
 
-    public void readLine(String line) {
-        String[] words = line.split("\\s+");
+    public String getUrl() {
+        return this.url;
     }
 
-    public void download(String urlString) throws IOException {
-        URL url = new URL(urlString);
+    public Map<Character, Integer> getMap() {
+        return this.map;
+    }
+
+    public Map.Entry<Character, Integer> getMostOcc() {
+
+        Map.Entry<Character, Integer> maxEntry = null;
+
+        for (Map.Entry<Character, Integer> entry : this.map.entrySet())
+        {
+            if (maxEntry == null || entry.getValue().compareTo(maxEntry.getValue()) > 0)
+            {
+                maxEntry = entry;
+            }
+        }
+
+        return maxEntry;
+
+    }
+
+    // This function takes a string and gets each word, then puts the letter the word starts with into a map.
+    // If the map already contains that letter, it will instead increment the letter count by 1.
+    public void readLine(String line) {
+
+        // Split the string into words by removing spaces
+        String[] words = line.split("\\s+");
+
+        System.out.println(Arrays.toString(words));
+
+        // For each word, find the first character, ignoring any non alphanumerical characters that might be
+        // caught in the word.
+        for (String word : words) {
+            for (int i = 0; i < word.length(); i++) {
+                char c = word.charAt(i);
+
+                // Add to map if first alphanumerical character is a letter, else go to next word.
+                if (Character.isLetter(c)) {
+                    map.put(Character.toUpperCase(c), map.getOrDefault(Character.toUpperCase(c), 0) + 1);
+                    break;
+                } else if (Character.isDigit(c)) {
+                    break;
+                }
+
+            }
+        }
+    }
+
+    // This function downloads at the given URL, then calls readLine on each line in the stream.
+    public void download() throws IOException {
+        URL url = new URL(this.url);
         try(
             BufferedReader reader = new BufferedReader(new InputStreamReader(url.openStream()));
         ) {
             String line;
             while ((line = reader.readLine()) != null) {
-
+                readLine(line);
             }
             System.out.println("Page downloaded.");
         }
