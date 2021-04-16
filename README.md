@@ -8,13 +8,24 @@ I enjoyed the project and wished that I could do more to extend the class functi
 
 All you need to get the program to run:
 
-*You need the JDK runtime environment or an IDE which can run Java programs.* 
+*You need the JDK runtime environment or an IDE which can run Java programs. (If you are using an IDE, simply run the main function within the Main.java file)* 
 
-Clone the repository, the cd into it. After that run the following two lines.
+From Github:
+
+Clone the repository, then cd into it. After that run the following two lines.
 ```bash
 javac Main.java
 java Main
 ```
+
+From ZIP file:
+
+cd into directory containing source code. After that run the following two lines.
+```bash
+javac Main.java
+java Main
+```
+
 
 ## Decisions and Interpretations
 
