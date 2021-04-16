@@ -20,7 +20,7 @@ java Main
 
 From ZIP file:
 
-cd into directory containing source code. After that run the following two lines.
+Extract the contents of the zip file into a new directory, then cd into it. After that run the following two lines.
 ```bash
 javac Main.java
 java Main
