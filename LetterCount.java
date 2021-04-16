@@ -12,7 +12,13 @@ public class LetterCount {
 
     public LetterCount(String url) {
         this.url = url;
+        System.out.println(String.format("Set URL to %s.", url));
         this.map = new HashMap<>();
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+        System.out.println(String.format("Changed URL to %s.", url));
     }
 
     public String getUrl() {
@@ -37,6 +43,10 @@ public class LetterCount {
                 maxEntry = entry;
             }
         }
+
+        String letter = maxEntry.toString().split("=")[0];
+        String occurances = maxEntry.toString().split("=")[1];
+        System.out.println(String.format("The letter that occured at the start of words the most was %s, with %s recorded occurences.", letter, occurances));
 
         return maxEntry;
 
@@ -69,7 +79,11 @@ public class LetterCount {
 
     // This function downloads at the given URL, then calls readLine on each line in the stream.
     public void download() throws IOException {
+
+        // Clear the map first, so we aren't stacking on another webpages letter count
+        this.map.clear();
         URL url = new URL(this.url);
+        
         try 
         (
             BufferedReader reader = new BufferedReader(new InputStreamReader(url.openStream()));
